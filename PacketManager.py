@@ -1,11 +1,14 @@
-# import Stack
-# import Queue
+from Stack import Stack
+from Queue import Queue
 
-# Envoie d'un paquet 
-def send_packet():
+def send_packet(packet, route_table):
+    # Simuler l'envoi d'un paquet en utilisant la table de routage
+    pass
 
-# réception du paquet
-def receive_packet():
+def receive_packet(packet, route_table):
+    # Simuler la réception d'un paquet en utilisant la table de routage
+    pass
 
-# Définir la mellieur route pour un paquet
-def route_packet():
+def route_packet(packet, route_table):
+    # Trouver la meilleure route pour un paquet
+    pass
