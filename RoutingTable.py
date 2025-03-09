@@ -3,7 +3,7 @@ from BinTree import BinTree
 
 def bfs_mark_unreachable(root, ip):
     """
-    Marque le nœud spécifié et ses enfants comme non accessibles en utilisant un parcours en largeur (BFS).
+    Marque le nœud spécifié et tous ses descendants comme non accessibles en utilisant un parcours en largeur (BFS).
 
     :param root: Racine de l'arbre.
     :param ip: Adresse IP du réseau en panne.
@@ -11,40 +11,35 @@ def bfs_mark_unreachable(root, ip):
     """
     unreachable = set()
     
-    # Trouver le nœud en panne en utilisant un parcours en largeur (BFS)
-    queue = []
-    queue.append(root)  # Commencer par la racine
+    # File pour le parcours BFS
+    queue = [root]
     
     while queue:
-        current = queue.pop(0)  # Retire le premier élément de la file
+        current = queue.pop(0)  # Défilement (FIFO)
         
-        # Si le nœud actuel correspond à l'adresse IP en panne
         if current.key == ip:
-            # Marquer ce nœud et tous ses enfants comme non accessibles
-            unreachable.add(current.key)
-            if current.left:
-                unreachable.add(current.left.key)
-            if current.right:
-                unreachable.add(current.right.key)
-            break  # On a trouvé le nœud en panne, on peut arrêter
+            # Ajouter tous les descendants du nœud en panne à l'ensemble
+            queue.append(current)  # Ajouter lui-même pour traitement
+            break  # On a trouvé le nœud en panne
+    
+    while queue:
+        node = queue.pop(0)  # Retirer un nœud
         
-        # Ajouter les enfants du nœud actuel à la file
-        if current.left:
-            queue.append(current.left)
-        if current.right:
-            queue.append(current.right)
+        # Marquer le nœud comme inaccessible
+        unreachable.add(node.key)
+
+        # Ajouter ses enfants à la file pour marquer tous les descendants
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
     
     return unreachable
+
 
 def search_prefix(root, ip, path=[], optimal_path=[]):
     """
     Recherche une route en utilisant un parcours préfixe (pré-ordre) NGD.
-
-    :param root: Racine de l'arbre.
-    :param ip: Adresse IP à rechercher.
-    :param path: Chemin parcouru pendant la recherche.
-    :param optimal_path: Chemin optimal depuis la racine.
-    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal.
     """
     if root is None:
         return None, path, optimal_path
@@ -59,34 +54,29 @@ def search_prefix(root, ip, path=[], optimal_path=[]):
         return root, path, optimal_path
     
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_prefix(root.left, ip, path, optimal_path)
+    left_result, left_path, left_optimal = search_prefix(root.left, ip, path.copy(), optimal_path)
     if left_result:
         return left_result, left_path, left_optimal
     
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_prefix(root.right, ip, path, optimal_path)
+    right_result, right_path, right_optimal = search_prefix(root.right, ip, path.copy(), optimal_path)
     if right_result:
         return right_result, right_path, right_optimal
     
     # Retirer le nœud actuel du chemin parcouru (backtracking)
     path.pop()
     return None, path, optimal_path
+
 
 def search_infix(root, ip, path=[], optimal_path=[]):
     """
     Recherche une route en utilisant un parcours infixe (in-ordre) GND.
-
-    :param root: Racine de l'arbre.
-    :param ip: Adresse IP à rechercher.
-    :param path: Chemin parcouru pendant la recherche.
-    :param optimal_path: Chemin optimal depuis la racine.
-    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal.
     """
     if root is None:
         return None, path, optimal_path
     
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_infix(root.left, ip, path, optimal_path)
+    left_result, left_path, left_optimal = search_infix(root.left, ip, path.copy(), optimal_path)
     if left_result:
         return left_result, left_path, left_optimal
     
@@ -100,34 +90,29 @@ def search_infix(root, ip, path=[], optimal_path=[]):
         return root, path, optimal_path
     
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_infix(root.right, ip, path, optimal_path)
+    right_result, right_path, right_optimal = search_infix(root.right, ip, path.copy(), optimal_path)
     if right_result:
         return right_result, right_path, right_optimal
     
     # Retirer le nœud actuel du chemin parcouru (backtracking)
     path.pop()
     return None, path, optimal_path
+
 
 def search_suffix(root, ip, path=[], optimal_path=[]):
     """
     Recherche une route en utilisant un parcours suffixe (post-ordre) GDN.
-
-    :param root: Racine de l'arbre.
-    :param ip: Adresse IP à rechercher.
-    :param path: Chemin parcouru pendant la recherche.
-    :param optimal_path: Chemin optimal depuis la racine.
-    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal.
     """
     if root is None:
         return None, path, optimal_path
     
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_suffix(root.left, ip, path, optimal_path)
+    left_result, left_path, left_optimal = search_suffix(root.left, ip, path.copy(), optimal_path)
     if left_result:
         return left_result, left_path, left_optimal
     
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_suffix(root.right, ip, path, optimal_path)
+    right_result, right_path, right_optimal = search_suffix(root.right, ip, path.copy(), optimal_path)
     if right_result:
         return right_result, right_path, right_optimal
     
@@ -143,6 +128,7 @@ def search_suffix(root, ip, path=[], optimal_path=[]):
     # Retirer le nœud actuel du chemin parcouru (backtracking)
     path.pop()
     return None, path, optimal_path
+
 
 
 def find_fastest_search(root, ip):
@@ -297,47 +283,24 @@ def load_search_cache():
 
 def delete_route(root, ip):
     """
-    Supprimer une route de la table de routage.
+    Supprime un nœud et tous ses descendants dans l'arbre binaire.
 
-    :param root: Racine de l'arbre binaire.
-    :param ip: Adresse IP de la route à supprimer.
-    :return: Racine de l'arbre binaire mise à jour.
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP du réseau à supprimer.
+    :return: Nouvelle racine de l'arbre mise à jour.
     """
-    # Si l'arbre est vide, on retourne la racine. 
     if root is None:
-        return root
+        return None
+
+    if root.key == ip:
+        return None  # Supprime complètement le sous-arbre du nœud en panne
     
-    # Si l'adresse IP est inférieure à la clé du nœud actuel, on va à gauche
-    if ip < root.key:
-        root.left = delete_route(root.left, ip)
+    # Parcours récursif
+    root.left = delete_route(root.left, ip)
+    root.right = delete_route(root.right, ip)
 
-    # Si l'adresse IP est supérieure, on va à droite
-    elif ip > root.key:
-        root.right = delete_route(root.right, ip)
-
-    # Si on a trouvé le nœud à supprimer
-    else:
-        # Cas 1 : Le nœud n'a pas d'enfant à gauche
-        if root.left is None:
-            return root.right
-        
-        # Cas 2 : Le nœud n'a pas d'enfant à droite
-        elif root.right is None:
-            return root.left
-        
-        # Cas 3 : Le nœud a deux enfants
-        else:
-            # On trouve le successeur (le plus petit nœud dans le sous-arbre droit)
-            temp = min_value_node(root.right)
-
-            # On remplace la clé et les informations de routage
-            root.key = temp.key
-            root.route_info = temp.route_info
-
-            # On supprime le successeur
-            root.right = delete_route(root.right, temp.key)
-    
     return root
+
 
 def min_value_node(node):
     """
