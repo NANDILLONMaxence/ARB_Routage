@@ -1,6 +1,5 @@
 from BinTree import BinTree
 
-
 def bfs_mark_unreachable(root, ip):
     """
     Marque le nœud spécifié et tous ses descendants comme non accessibles en utilisant un parcours en largeur (BFS).
@@ -36,99 +35,93 @@ def bfs_mark_unreachable(root, ip):
     
     return unreachable
 
-
-def search_prefix(root, ip, path=[], optimal_path=[]):
-    """
-    Recherche une route en utilisant un parcours préfixe (pré-ordre) NGD.
-    """
+def search_prefix(root, ip, path=None, optimal_path=None):
+    """Recherche en préfixe (pré-ordre)."""
+    if path is None:
+        path = []
+    if optimal_path is None:
+        optimal_path = []
+    
     if root is None:
         return None, path, optimal_path
-    
+
     # Ajouter le nœud actuel au chemin parcouru
     path.append(root.key)
-    
-    # Si le nœud actuel correspond à l'IP recherchée
+
     if root.key == ip:
-        # Le chemin optimal est une copie du chemin parcouru jusqu'ici
-        optimal_path = path.copy()
+        # Copier le chemin optimal
+        optimal_path.extend(path)
         return root, path, optimal_path
-    
+
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_prefix(root.left, ip, path.copy(), optimal_path)
+    left_result, _, left_optimal = search_prefix(root.left, ip, path, optimal_path)
     if left_result:
-        return left_result, left_path, left_optimal
-    
+        return left_result, path, left_optimal
+
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_prefix(root.right, ip, path.copy(), optimal_path)
+    right_result, _, right_optimal = search_prefix(root.right, ip, path, optimal_path)
     if right_result:
-        return right_result, right_path, right_optimal
-    
-    # Retirer le nœud actuel du chemin parcouru (backtracking)
-    path.pop()
+        return right_result, path, right_optimal
+
     return None, path, optimal_path
 
+def search_infix(root, ip, path=None, optimal_path=None):
+    """Recherche en infixe (in-ordre)."""
+    if path is None:
+        path = []
+    if optimal_path is None:
+        optimal_path = []
 
-def search_infix(root, ip, path=[], optimal_path=[]):
-    """
-    Recherche une route en utilisant un parcours infixe (in-ordre) GND.
-    """
     if root is None:
         return None, path, optimal_path
-    
+
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_infix(root.left, ip, path.copy(), optimal_path)
+    left_result, _, left_optimal = search_infix(root.left, ip, path, optimal_path)
     if left_result:
-        return left_result, left_path, left_optimal
-    
+        return left_result, path, left_optimal
+
     # Ajouter le nœud actuel au chemin parcouru
     path.append(root.key)
-    
-    # Si le nœud actuel correspond à l'IP recherchée
+
     if root.key == ip:
-        # Le chemin optimal est une copie du chemin parcouru jusqu'ici
-        optimal_path = path.copy()
+        optimal_path.extend(path)
         return root, path, optimal_path
-    
+
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_infix(root.right, ip, path.copy(), optimal_path)
+    right_result, _, right_optimal = search_infix(root.right, ip, path, optimal_path)
     if right_result:
-        return right_result, right_path, right_optimal
-    
-    # Retirer le nœud actuel du chemin parcouru (backtracking)
-    path.pop()
+        return right_result, path, right_optimal
+
     return None, path, optimal_path
 
+def search_suffix(root, ip, path=None, optimal_path=None):
+    """Recherche en suffixe (post-ordre)."""
+    if path is None:
+        path = []
+    if optimal_path is None:
+        optimal_path = []
 
-def search_suffix(root, ip, path=[], optimal_path=[]):
-    """
-    Recherche une route en utilisant un parcours suffixe (post-ordre) GDN.
-    """
     if root is None:
         return None, path, optimal_path
-    
+
     # Recherche dans le sous-arbre gauche
-    left_result, left_path, left_optimal = search_suffix(root.left, ip, path.copy(), optimal_path)
+    left_result, _, left_optimal = search_suffix(root.left, ip, path, optimal_path)
     if left_result:
-        return left_result, left_path, left_optimal
-    
+        return left_result, path, left_optimal
+
     # Recherche dans le sous-arbre droit
-    right_result, right_path, right_optimal = search_suffix(root.right, ip, path.copy(), optimal_path)
+    right_result, _, right_optimal = search_suffix(root.right, ip, path, optimal_path)
     if right_result:
-        return right_result, right_path, right_optimal
-    
+        return right_result, path, right_optimal
+
     # Ajouter le nœud actuel au chemin parcouru
     path.append(root.key)
-    
-    # Si le nœud actuel correspond à l'IP recherchée
-    if root.key == ip:
-        # Le chemin optimal est une copie du chemin parcouru jusqu'ici
-        optimal_path = path.copy()
-        return root, path, optimal_path
-    
-    # Retirer le nœud actuel du chemin parcouru (backtracking)
-    path.pop()
-    return None, path, optimal_path
 
+    if root.key == ip:
+        optimal_path.extend(path)
+        return root, path, optimal_path
+
+    return None, path, optimal_path
 
 
 def find_fastest_search(root, ip):
@@ -183,7 +176,6 @@ def find_fastest_search(root, ip):
     
     # Retourner uniquement quatre valeurs
     return fastest_method, fastest_result, fastest_path, path_from_root
-
 
 def get_current_time():
     """

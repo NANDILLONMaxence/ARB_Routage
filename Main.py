@@ -20,7 +20,7 @@ root = BinTree("192.168.1.0/24", "RT1",
 )
 
 # Spécifier un réseau en panne
-network_down = "192.168.50.0/24"  # Réseau en panne
+network_down = "192.168.20.0/24"  # Réseau en panne
 unreachable_nodes = bfs_mark_unreachable(root, network_down)
 
 # Supprimer le réseau en panne et ses enfants
@@ -28,7 +28,7 @@ root = delete_route(root, network_down)
 
 
 # Recherche d'une route
-ip_to_search = "192.168.30.0/24"  # Réseau recherché par l'utilisateur
+ip_to_search = "192.168.50.0/24"  # Réseau recherché par l'utilisateur
 
 # Vérifier si la route est déjà dans le cache
 cache = load_search_cache()
@@ -53,4 +53,4 @@ else:
         # Enregistrer dans le cache
         save_search_cache(ip_to_search, method, path, path_from_root)
     else:
-        print("Route non trouvée.")
+        print("La route recherchée est inaccessible ou n'existe pas.")
