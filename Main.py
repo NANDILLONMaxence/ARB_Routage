@@ -31,6 +31,7 @@ def is_network_in_tree(root, ip):
     return is_network_in_tree(root.left, ip) or is_network_in_tree(root.right, ip)
 
 # Demander à l'utilisateur d'entrer le réseau en panne
+# Supprimer le réseau en panne et ses enfants
 network_down = input("Entrez le réseau en panne (ex: 192.168.50.0/24) : ").strip()
 
 # Vérifier si le réseau existe AVANT suppression
@@ -42,7 +43,7 @@ else:
     print(f"⚠️ Attention : Le réseau {network_down} n'existe pas dans la table de routage.")
     unreachable_nodes = set()  # Aucune suppression n'a eu lieu
 
-# Demander à l'utilisateur d'entrer le réseau à rechercher
+# Rechercher la route après la suppression
 ip_to_search = input("Entrez le réseau à rechercher (ex: 192.168.30.0/24) : ").strip()
 
 # Vérifier si la route est déjà en cache

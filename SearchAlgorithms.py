@@ -84,6 +84,10 @@ def find_fastest_search(root, ip, unreachable_nodes=None):
     if unreachable_nodes is None:
         unreachable_nodes = set()
 
+    # Vérifier si le nœud recherché est dans unreachable_nodes
+    if ip in unreachable_nodes:
+        return None, None, [], [], f"La route {ip} était présente mais a été supprimée ou est devenue inaccessible."
+
     methods = {
         "prefix": search_prefix,
         "infix": search_infix,
@@ -96,11 +100,17 @@ def find_fastest_search(root, ip, unreachable_nodes=None):
     fastest_path = []
     fastest_optimal_path = []
 
+    print("Comparaison des méthodes de recherche :")
+
     for method_name, method in methods.items():
         start_time = time()
         result, path, optimal_path = method(root, ip)
         elapsed_time = time() - start_time
 
+        # Afficher les caractéristiques de chaque méthode
+        print(f"Méthode {method_name} : {elapsed_time:.6f} secondes, {len(path)} nœuds parcourus")
+
+        # Comparer les méthodes pour trouver la plus rapide
         if result and elapsed_time < fastest_time:
             fastest_method = method_name
             fastest_time = elapsed_time
@@ -111,9 +121,6 @@ def find_fastest_search(root, ip, unreachable_nodes=None):
     if fastest_result:
         path_from_root = get_path_from_root(root, ip)
         return fastest_method, fastest_result, fastest_path, path_from_root, None
-
-    if ip in unreachable_nodes:
-        return None, None, [], [], f"La route {ip} était présente mais a été supprimée ou est devenue inaccessible."
 
     return None, None, [], [], f"La route {ip} n'existe pas dans la table de routage."
 
