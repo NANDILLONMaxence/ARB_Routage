@@ -1,7 +1,10 @@
+# Version: 1.0
+# Subject: Gestionnaire de cache
+# Created by: NANDILLON Maxence
 
 def save_search_cache(ip, method, path, path_from_root):
     """
-    Sauvegarde les informations de recherche dans un fichier cache.
+    Sauvegarde les informations de recherche dans un fichier cache "search_cache.txt".
     
     Paramètres :
         ip (str) : Adresse IP de l'utilisateur.
@@ -22,6 +25,7 @@ def save_search_cache(ip, method, path, path_from_root):
     # Écrire le cache mis à jour dans le fichier
     with open("search_cache.txt", "w") as file:
         for ip_key, data in cache.items():
+            # Écrire chaque entrée du cache dans le fichier, sur une ligne
             file.write(f"{ip_key}:{data['method']}:{','.join(data['path'])}:{','.join(data['path_from_root'])}\n")
 
 def load_search_cache():

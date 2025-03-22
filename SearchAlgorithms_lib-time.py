@@ -1,4 +1,7 @@
-# Importation de la bibliothèque Queue pour utiliser une file d'attente
+# Version: 1.0
+# Subject: Algorithmes de recherche
+# Created by: NANDILLON Maxence
+
 from Queue import Queue
 
 # Fonction de recherche de type "prefix" (préfère visiter les nœuds à gauche avant)

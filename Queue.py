@@ -1,3 +1,7 @@
+# Version: 1.0
+# Subject: Classe de file d'attente (Queue)
+# Created by: NANDILLON Maxence
+
 class Queue:
     def __init__(self):
         """

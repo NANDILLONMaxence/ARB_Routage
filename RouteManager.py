@@ -1,3 +1,7 @@
+# Version: 1.0
+# Subject: Gestionnaire de route
+# Created by: NANDILLON Maxence
+
 from Queue import Queue
 
 def bfs_mark_unreachable(root, ip):

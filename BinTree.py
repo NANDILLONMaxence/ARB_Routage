@@ -1,5 +1,9 @@
+# Version: 1.0
+# Subject: Classe d'arbre binaire
+# Created by: NANDILLON Maxence
+
 class BinTree:
-    def __init__(self, key, route_info, left=None, right=None):
+    def __init__(self, key, route_info, left=None, right=None, left_left=None, left_right=None, right_left=None, right_right=None):
         """
         Initialise un nœud de l'arbre binaire.
 
@@ -33,3 +37,9 @@ class BinTree:
         
         # Attribuer le sous-arbre droit (enfant droit)
         self.right = right
+
+        # Attribuer les sous-arbres supplémentaires
+        self.left_left = left_left
+        self.left_right = left_right
+        self.right_left = right_left
+        self.right_right = right_right

@@ -1,8 +1,20 @@
-# Importation de la bibliothèque Queue pour utiliser une file d'attente
+# Version: 1.0
+# Subject: Algorithmes de recherche
+# Created by: NANDILLON Maxence
+
 from Queue import Queue
 
-# Fonction de recherche de type "prefix" (on explore d'abord la gauche, puis la droite)
 def search_prefix(root, ip, path=None, optimal_path=None):
+    """
+    Recherche un nœud dans l'arbre en utilisant un parcours préfixe (prefixe).
+    [Noeud puis Gauche puis droite]
+
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP à rechercher.
+    :param path: Chemin parcouru.
+    :param optimal_path: Chemin optimal depuis la racine.
+    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal depuis la racine.
+    """
     # Initialiser les chemins si aucun n'est passé en argument
     if path is None:
         path = []
@@ -34,8 +46,17 @@ def search_prefix(root, ip, path=None, optimal_path=None):
     # Si l'IP n'a pas été trouvée, on retourne les chemins parcourus
     return None, path, optimal_path
 
-# Fonction de recherche de type "infix" (on explore gauche, puis le nœud, puis droite)
 def search_infix(root, ip, path=None, optimal_path=None):
+    """
+    Recherche un nœud dans l'arbre en utilisant un parcours infixe (infixe).
+    [On explore gauche, puis le nœud, puis droite]
+
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP à rechercher.
+    :param path: Chemin parcouru.
+    :param optimal_path: Chemin optimal depuis la racine.
+    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal depuis la racine.
+    """
     if path is None:
         path = []
     if optimal_path is None:
@@ -64,8 +85,17 @@ def search_infix(root, ip, path=None, optimal_path=None):
 
     return None, path, optimal_path
 
-# Fonction de recherche de type "suffix" (on explore gauche, puis droite, puis le nœud)
 def search_suffix(root, ip, path=None, optimal_path=None):
+    """
+    Recherche un nœud dans l'arbre en utilisant un parcours suffixe (postfixe)
+    [On explore gauche, puis droite, puis le nœud]
+
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP à rechercher.
+    :param path: Chemin parcouru.
+    :param optimal_path: Chemin optimal depuis la racine.
+    :return: Le nœud trouvé, le chemin parcouru, et le chemin optimal depuis la racine.
+    """
     if path is None:
         path = []
     if optimal_path is None:
@@ -94,7 +124,6 @@ def search_suffix(root, ip, path=None, optimal_path=None):
 
     return None, path, optimal_path
 
-# Fonction de recherche en largeur (BFS) pour trouver un nœud
 def bfs_search(root, ip):
     """
     Recherche un nœud dans l'arbre en utilisant un parcours en largeur (BFS).
@@ -125,8 +154,15 @@ def bfs_search(root, ip):
 
     return None, [], []  # Si l'IP n'est pas trouvée dans l'arbre, on retourne rien
 
-# Fonction pour trouver la méthode de recherche la plus rapide
 def find_fastest_search(root, ip, unreachable_nodes=None):
+    """
+    Trouve la méthode de recherche la plus rapide pour trouver un nœud dans l'arbre."
+
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP à rechercher.
+    :param unreachable_nodes: Liste des nœuds inaccessibles.
+    :return: La méthode de recherche la plus rapide, le nœud trouvé, le chemin parcouru, le chemin optimal depuis la racine, et un message d'erreur.
+    """
     if root is None:
         return None, None, [], [], "L'arbre de routage est vide."
 
@@ -172,9 +208,23 @@ def find_fastest_search(root, ip, unreachable_nodes=None):
 
     return None, None, [], [], f"La route {ip} n'existe pas dans la table de routage."
 
-# Fonction pour obtenir le chemin de la racine à un nœud spécifique
 def get_path_from_root(root, ip):
+    """
+    Trouve le chemin de la racine à un nœud spécifique dans l'arbre."
+
+    :param root: Racine de l'arbre.
+    :param ip: Adresse IP à rechercher."
+    :return: Le chemin de la racine au nœud spécifique.
+    """
     def dfs(node, target_ip, path):
+        """
+        Parcours en profondeur d'abord (DFS) pour trouver un nœud dans l'arbre.
+        
+        :param node: Nœud actuel.
+        :param target_ip: Adresse IP à rechercher.
+        :param path: Chemin parcouru.
+        :return Le chemin de la racine au nœud spécifique.
+        """
         if node is None:
             return None
         path.append(node.key)  # Ajouter le nœud actuel au chemin

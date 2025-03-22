@@ -1,3 +1,7 @@
+# Version: 1.0
+# Subject: Visualisation d'arbre binaire
+# Created by: NANDILLON Maxence
+
 def print_tree(root, searched_node=None, prefix="", is_left=True):
     """
     Affiche l'arbre binaire de manière hiérarchique en utilisant des symboles pour représenter la structure de l'arbre.

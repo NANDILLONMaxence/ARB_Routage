@@ -1,6 +1,6 @@
 # Version: 1.0
-# Language: Python
-# Created by: Quentin
+# Subject: Fonction d'envoi de paquet
+# Created by: NANDILLON Maxence
 
 def send_packet( ip, path_from_root):
     """
@@ -17,6 +17,7 @@ def send_packet( ip, path_from_root):
     print(f"\n📦 Envoi du paquet vers {ip}...")
     total_latency = 0
 
+    # Parcourir chaque saut dans le chemin de la racine à la destination
     for i in range(len(path_from_root) - 1):
         current_node = path_from_root[i]
         next_node = path_from_root[i + 1]
