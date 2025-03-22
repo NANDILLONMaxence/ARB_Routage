@@ -82,7 +82,7 @@ def build_tree():
             # Sous-arbre droit de RT2 représentant le réseau "192.168.30.0/24" et le routeur "RT7"
             right=BinTree("192.168.30.0/24", "RT7",
                 # Sous-arbres de RT7
-                left=BinTree("192.168.40.0/24", "RT14"),
+                left=BinTree("192.168.45.0/24", "RT14"),
                 right=BinTree("172.19.0.0/16", "RT15")
             ),
             # Le sous-arbre gauche supplémentaire de RT2 représente le réseau "172.20.0.0/16" et le routeur "RT20"
