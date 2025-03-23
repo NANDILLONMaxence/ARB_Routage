@@ -1,131 +1,76 @@
-Voici une proposition de fichier **README.md** pour votre projet. Ce fichier servira de point d'entrée pour les utilisateurs et les développeurs qui souhaitent comprendre, installer et utiliser votre projet.
+# Projet : Optimisation du routage des paquets (ARB_routage)
 
----
+## Description du projet
 
-# Projet de Routage Réseau avec Arbres Binaires
-
-## Contexte
-
-Ce projet a été développé dans le cadre d'un cours d'algorithmique avancée en Python. L'objectif est de modéliser une architecture réseau en utilisant des arbres binaires pour structurer une table de routage. Le programme permet de gérer les routes, de rechercher des chemins optimaux, et de gérer les routes devenues inaccessibles.
-
-Le projet ma permis de metre en pratique la manipulation des arbres binaires, d'implémenter et optimiser plusieurs paradigmes de traversée essentiels. La mise en œuvre des traversées infixe, préfixe et postfixe m'a permis de comprendre les différentes stratégies d'exploration des structures arborescentes, tandis que l'intégration du parcours en largeur (BFS) a renforcé ma compréhension des algorithmes de traversée niveau par niveau. Parallèlement, l'implémentation d'un système de gestion de cache a démontré son efficacité pour optimiser les performances lors des recherches répétitives, illustrant parfaitement l'équilibre entre complexité temporelle et spatiale dans la conception d'algorithmes efficaces.
-
----
+Ce projet a été réalisé dans le cadre du cours d'**Algorithmique Avancée avec Python** à l'ESGI. L'objectif principal est de modéliser une architecture réseau en utilisant des **arbres binaires** pour structurer une table de routage et d'optimiser le routage des paquets en trouvant le chemin le plus efficace entre les routeurs. Le projet implémente des algorithmes de parcours d'arbres tels que le **parcours en profondeur (DFS)** et le **parcours en largeur (BFS)** pour trouver le chemin optimal.
 
 ## Fonctionnalités
 
-Le projet offre les fonctionnalités suivantes :
+- **Représentation du réseau** : Chaque nœud de l'arbre représente un routeur, et les branches représentent les connexions entre les routeurs.
+- **Algorithme de routage** : Utilisation de DFS et BFS pour trouver le chemin optimal vers une destination.
+- **Simulation d'envoi de paquets** : Simulation de l'envoi de paquets en suivant le chemin optimal calculé.
+- **Gestion des routes obstruées** : Gestion des cas où une route est obstruée et proposition d'une alternative.
+- **Extension avec ABR** : Utilisation d'un arbre binaire de recherche pour optimiser la recherche des routes et leur coût.
 
-- **Gestion des routes** :
-  - Ajout et suppression de routes dans l'arbre binaire.
-  - Recherche de routes en utilisant trois méthodes de parcours : préfixe, infixe et suffixe.
-  
-- **Gestion des routes inaccessibles** :
-  - Marquer et supprimer les routes devenues inaccessibles.
-  - Suppression des descendants d'une route inaccessible.
+## Structure du projet
 
-- **Cache de recherche** :
-  - Stockage des résultats de recherche pour optimiser les requêtes répétées.
-  - Chargement et sauvegarde du cache dans un fichier texte.
+Le projet est organisé en plusieurs modules Python :
 
-- **Interface en ligne de commande** :
-  - Interaction avec l'utilisateur pour entrer les réseaux à rechercher ou à supprimer.
-  - Affichage des résultats de recherche, y compris le chemin parcouru et la méthode utilisée.
-
----
+- **BinTree.py** : Implémentation de la classe `BinTree` pour représenter les nœuds de l'arbre binaire.
+- **Queue.py** : Implémentation d'une file d'attente (Queue) pour gérer les paquets en attente d'envoi.
+- **RouteManager.py** : Gestion des routes et des algorithmes de routage.
+- **SearchAlgorithms.py** : Implémentation des algorithmes de recherche (DFS, BFS, etc.).
+- **PacketSender.py** : Simulation de l'envoi de paquets.
+- **TreeVisualizer.py** : Visualisation de l'arbre de routage.
+- **CacheManager.py** : Gestion du cache pour stocker les résultats de recherche.
+- **Main.py** : Programme principal qui orchestre l'exécution du projet.
 
 ## Installation
 
-### Prérequis
+Pour exécuter ce projet, vous devez avoir Python installé sur votre machine. Suivez les étapes suivantes :
 
-- **Python 3.x** : Assurez-vous d'avoir Python 3.x installé sur votre machine.
-- **Git** (optionnel) : Pour cloner le dépôt du projet.
-
-### Étapes d'installation
-
-1. **Cloner le dépôt** (si vous utilisez Git) :
+1. Clonez ce dépôt GitHub :
    ```bash
-   git clone https://github.com/votre-utilisateur/votre-projet.git
-   cd votre-projet
+   git clone https://github.com/votre-utilisateur/ARB_routage.git
+   ```
+2. Accédez au répertoire du projet :
+   ```bash
+   cd ARB_routage/programme
+   ```
+3. Exécutez le programme principal :
+   ```bash
+   python Main.py
    ```
 
-2. **Téléchargement manuel** :
-   - Téléchargez le projet depuis GitHub sous forme d'archive ZIP.
-   - Extrayez l'archive dans un dossier de votre choix.
+## Utilisation
 
-3. **Vérification de l'installation** :
-   - Ouvrez un terminal dans le dossier du projet.
-   - Exécutez la commande suivante pour vérifier que Python est correctement installé :
-     ```bash
-     python3 --version
-     ```
+Le programme principal (`Main.py`) vous guidera à travers les différentes étapes du projet :
 
----
+1. **Construction de l'arbre de routage** : L'arbre de routage est construit automatiquement à partir des données fournies.
+2. **Recherche de routes** : Vous pouvez rechercher une route spécifique en entrant une adresse IP.
+3. **Simulation d'envoi de paquets** : Vous pouvez simuler l'envoi d'un paquet en suivant le chemin optimal calculé.
+4. **Visualisation de l'arbre** : L'arbre de routage est affiché dans le terminal avec des couleurs pour indiquer les nœuds recherchés.
 
-## Démarrage du projet
+## Outils utilisés
 
-1. **Lancement du programme** :
-   - Ouvrez un terminal dans le dossier du projet.
-   - Exécutez le fichier `Main.py` avec Python :
-     ```bash
-     python3 Main.py
-     ```
+- **Python** : Langage de programmation principal.
+- **Miro** : Pour la gestion des tâches et la création de diagrammes.
+- **Mermaid** : Pour les diagrammes de flux et d'UML.
+- **Copilote** : Pour les commentaires et descriptions dans le code.
 
-2. **Interaction avec le programme** :
-   - Le programme vous demandera d'entrer un réseau en panne (à supprimer) et un réseau à rechercher.
-   - Suivez les instructions à l'écran pour entrer les informations demandées.
+## Difficultés rencontrées
 
-3. **Exemple d'utilisation** :
-   ```bash
-   $ python3 Main.py
-   Entrez le réseau en panne (ex: 192.168.50.0/24) : 192.168.50.0/24
-   ✅ Le réseau 192.168.50.0/24 et ses descendants ont été supprimés.
-   Entrez le réseau à rechercher (ex: 192.168.30.0/24) : 192.168.30.0/24
-   🔎 Recherche de 192.168.30.0/24 avec les trois méthodes...
-   ✅ Route trouvée : RT7
-   🚀 Méthode la plus rapide : prefix
-   📍 Chemin parcouru : ['192.168.1.0/24', '172.16.0.0/16', '192.168.30.0/24']
-   🌳 Chemin depuis la racine : ['192.168.1.0/24', '172.16.0.0/16', '192.168.30.0/24']
-   ```
+ - **Gestion des parcours d’arbres** : La mise en place des algorithmes de parcours en profondeur (DFS) et en largeur (BFS) a été complexe, notamment en raison de la nécessité de gérer les nœuds et les branches de manière distincte.
+ - **Optimisation du routage** : Déterminer le chemin optimal avec le coût le plus faible, sans utiliser la bibliothèque time. Cela m'aurait permis de mesurer le temps de recherche de chaque méthode afin de sélectionner la plus rapide, plutôt que de choisir celle ayant parcouru le moins de nœuds pour atteindre le réseau cible. Cela nécessité des recherches approfondies et des tests multiples.
+ - **Gestion des routes obstruées avec alternative** : La gestion des cas où une route est obstruée et la proposition d’une alternative ont posé des problèmes de logique et de mise en œuvre.
 
----
+## Perspectives d'amélioration
 
-## Explication des Scripts du Programme
+- **Automatisation des tests** : Implémenter des tests automatisés pour vérifier l'efficacité des algorithmes de routage.
+- **Extension avec d'autres algorithmes** : Explorer d'autres algorithmes de routage pour améliorer les performances.
 
-### **Main.py**
-- **Rôle** : Point d'entrée du programme.
-- **Fonctionnalités** :
-  - Construction de l'arbre binaire représentant la table de routage.
-  - Interaction avec l'utilisateur pour entrer les réseaux à rechercher ou à supprimer.
-  - Appel des fonctions de recherche et de gestion des routes.
+## Licence
 
-### **BinTree.py**
-- **Rôle** : Définition de la structure de l'arbre binaire.
-- **Fonctionnalités** :
-  - Classe `BinTree` pour représenter un nœud de l'arbre.
-  - Chaque nœud contient une clé (adresse IP), des informations de routage, et des références aux sous-arbres gauche et droit.
-
-### **RouteManager.py**
-- **Rôle** : Gestion des routes dans l'arbre binaire.
-- **Fonctionnalités** :
-  - `bfs_mark_unreachable` : Marque un réseau et ses descendants comme inaccessibles en utilisant un parcours en largeur (BFS).
-  - `delete_route` : Supprime un réseau et ses descendants de l'arbre.
-
-### **SearchAlgorithms.py**
-- **Rôle** : Implémentation des algorithmes de recherche.
-- **Fonctionnalités** :
-  - `search_prefix`, `search_infix`, `search_suffix` : Parcours de l'arbre en préfixe, infixe et suffixe.
-  - `find_fastest_search` : Compare les trois méthodes de recherche et retourne la plus rapide.
-
-### **CacheManager.py**
-- **Rôle** : Gestion du cache de recherche.
-- **Fonctionnalités** :
-  - `save_search_cache` : Sauvegarde les résultats de recherche dans un fichier texte.
-  - `load_search_cache` : Charge les résultats de recherche depuis un fichier texte.
-
-### **Queue.py**
-- **Rôle** : Implémentation d'une file (FIFO) pour le parcours en largeur (BFS).
-- **Fonctionnalités** :
-  - Classe `Queue` pour gérer les éléments dans une file.
+Ce projet est sous licence MIT. Pour plus d'informations, consultez le fichier [LICENSE](LICENSE).
 
 ---
